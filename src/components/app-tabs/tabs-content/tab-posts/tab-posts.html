@@ -1,0 +1,49 @@
+<ul v-if="posts" class="tab-posts">
+  <li v-for="post in posts" class="tab-posts__item">
+    <div class="tab-posts__item-header">
+      <div class="tab-posts__item-line">
+        User: {{ getNameUser(post.userId) }}
+      </div>
+
+      <div class="tab-posts__item-line">Title: {{ post.title }}</div>
+      <div class="tab-posts__item-line">Text: {{ post.body }}</div>
+    </div>
+
+    <form class="tab-posts__new-comment">
+      <div class="tab-posts__new-comment-line">
+        <label class="tab-posts__new-comment-label"
+          >Name: <input type="text"
+        /></label>
+      </div>
+
+      <div class="tab-posts__new-comment-line">
+        <label class="tab-posts__new-comment-label"
+          >Email: <input type="email"
+        /></label>
+      </div>
+
+      <div class="tab-posts__new-comment-line">
+        <label class="tab-posts__new-comment-label"
+          >Comment: <input type="text"
+        /></label>
+      </div>
+
+      <button class="tab-posts__add-comment-button">Add comment</button>
+    </form>
+
+    <ul class="tab-posts__comments">
+      <li
+        class="tab-posts__comment"
+        v-for="comment in getCommentsByPostId(post.id)"
+      >
+        <div class="tab-posts__comment-line">
+          Comment of postId: {{ comment.postId }}
+        </div>
+
+        <div class="tab-posts__comment-line">Name: {{ comment.name }}</div>
+        <div class="tab-posts__comment-line">Email: {{ comment.email }}</div>
+        <div class="tab-posts__comment-line">Comment: {{ comment.body }}</div>
+      </li>
+    </ul>
+  </li>
+</ul>

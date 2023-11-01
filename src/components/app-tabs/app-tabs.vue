@@ -2,4 +2,4 @@
 
 <script lang="ts" src="./app-tabs.ts"></script>
 
-<!-- <style lang="scss"></style> -->
+<style lang="scss" src="./app-tabs.scss"></style>

@@ -1,0 +1,25 @@
+<main class="tabs">
+  <div class="container">
+    <div class="tabs__content">
+      <ul class="tabs__tabs">
+        <app-tab
+          :tabType="ETabType.Posts"
+          title="Посты"
+          @changeTab="changeCurrentTypeTab"
+        />
+
+        <app-tab
+          :tabType="ETabType.Users"
+          title="Пользователи"
+          @changeTab="changeCurrentTypeTab"
+        />
+      </ul>
+
+      <component
+        :is="`tab-${currentTypeTab}`"
+        :posts="posts"
+        :getUserByPostId="getUserByPostId"
+      />
+    </div>
+  </div>
+</main>
