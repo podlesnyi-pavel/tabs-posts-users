@@ -3,8 +3,12 @@
     <li v-for="user in users" class="tab-users__item">
       {{ user.name }}
 
-      <button class="tab-users__button" @click="checkUserPosts(user)">
-        Посмотреть посты пользователя
+      <button
+        class="tab-users__button"
+        @click="checkUserPosts(user)"
+        :disabled="!getPostsLengthByUserId(user.id)"
+      >
+        {{ textButton(user.id) }}
       </button>
     </li>
   </ul>

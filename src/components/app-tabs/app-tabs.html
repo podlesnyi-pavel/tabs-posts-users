@@ -44,9 +44,7 @@
         <component
           :is="`tab-${currentTypeTab}`"
           class="tabs__list"
-          :posts="currentPosts"
-          :users="users"
-          :getUserByPostId="getUserByPostId"
+          v-bind="propsByTab"
           @checkUserPosts="getPostsByUser"
         />
       </keep-alive>

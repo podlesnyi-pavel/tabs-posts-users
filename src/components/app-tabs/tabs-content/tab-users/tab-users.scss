@@ -17,9 +17,13 @@
     transition: background-color 1s, rotate 1s;
     cursor: pointer;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: yellow;
       rotate: 3deg;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 }
