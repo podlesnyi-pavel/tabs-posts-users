@@ -17,8 +17,32 @@ export default defineComponent({
       currentTypeTab: 'posts',
       ETabType: ETabType,
       posts: null as any[] | null,
-      users: null as any[] | null
+      users: null as any[] | null,
+      currentUserFilterPosts: null as null | any,
+      alphabeticalSort: false
     };
+  },
+  computed: {
+    isPostsList(): boolean {
+      return this.currentTypeTab === ETabType.Posts;
+    },
+    currentPosts(): any[] | undefined | null {
+      const sortedPosts =
+        this.alphabeticalSort && Array.isArray(this.posts)
+          ? [...this.posts]?.sort((a, b) => {
+              const userNameA = this.getUserByPostId(a.userId).name;
+              const userNameB = this.getUserByPostId(b.userId).name;
+
+              return userNameA.localeCompare(userNameB);
+            })
+          : this.posts;
+
+      return this.currentUserFilterPosts
+        ? sortedPosts?.filter(
+            (post) => post.userId === this.currentUserFilterPosts.id
+          )
+        : sortedPosts;
+    }
   },
   methods: {
     changeCurrentTypeTab(type: string): void {
@@ -29,6 +53,16 @@ export default defineComponent({
     },
     getCommentsById(userId: number) {
       return this.users?.find((user) => user.id === userId);
+    },
+    getPostsByUser(user: any): void {
+      this.changeCurrentTypeTab(ETabType.Posts);
+      this.currentUserFilterPosts = user;
+    },
+    resetCurrentUserFilterPosts(): void {
+      this.currentUserFilterPosts = null;
+    },
+    sort() {
+      this.alphabeticalSort = !this.alphabeticalSort;
     }
   },
   async created() {

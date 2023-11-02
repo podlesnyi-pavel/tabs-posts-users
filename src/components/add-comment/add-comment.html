@@ -1,0 +1,15 @@
+<form class="new-comment" @submit.prevent="addComment">
+  <label class="new-comment__label">
+    Name: <input type="text" v-model="name" required />
+  </label>
+
+  <label class="new-comment__label">
+    Email: <input type="email" v-model="email" required />
+  </label>
+
+  <label class="new-comment__label">
+    Comment: <input type="text" v-model="comment" required />
+  </label>
+
+  <button class="new-comment__button" type="submit">Add comment</button>
+</form>

@@ -4,7 +4,6 @@ class Api {
   private async request({
     method,
     endpoint,
-    headers = {},
     body = undefined
   }: {
     method: string;
@@ -17,8 +16,7 @@ class Api {
     const options: RequestInit = {
       method,
       headers: {
-        'Content-Type': 'application/json',
-        ...headers
+        'Content-Type': 'application/json; charset=UTF-8'
       },
       body
     };
@@ -33,7 +31,6 @@ class Api {
 
       const data = await response.json();
       return data;
-      // return response;
     } catch (error) {
       console.log(error);
     }
@@ -43,13 +40,13 @@ class Api {
     return this.request({ method: 'GET', endpoint });
   }
 
-  // async post(
-  //   endpoint: string,
-  //   body: BodyInit,
-  //   headers?: HeadersInit
-  // ): Promise<void> {
-  //   return this.request('POST', endpoint, body, headers);
-  // }
+  async post(endpoint: string, body: BodyInit): Promise<void> {
+    return this.request({
+      method: 'POST',
+      endpoint,
+      body: JSON.stringify(body)
+    });
+  }
 }
 
 export default new Api();

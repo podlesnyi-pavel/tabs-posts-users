@@ -9,27 +9,7 @@
       <div class="tab-posts__item-line">Text: {{ post.body }}</div>
     </div>
 
-    <form class="tab-posts__new-comment">
-      <div class="tab-posts__new-comment-line">
-        <label class="tab-posts__new-comment-label"
-          >Name: <input type="text"
-        /></label>
-      </div>
-
-      <div class="tab-posts__new-comment-line">
-        <label class="tab-posts__new-comment-label"
-          >Email: <input type="email"
-        /></label>
-      </div>
-
-      <div class="tab-posts__new-comment-line">
-        <label class="tab-posts__new-comment-label"
-          >Comment: <input type="text"
-        /></label>
-      </div>
-
-      <button class="tab-posts__add-comment-button">Add comment</button>
-    </form>
+    <addComment @addComment="addComment($event, post.id)" />
 
     <ul class="tab-posts__comments">
       <li

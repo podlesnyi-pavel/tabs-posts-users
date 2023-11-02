@@ -15,11 +15,41 @@
         />
       </ul>
 
-      <component
-        :is="`tab-${currentTypeTab}`"
-        :posts="posts"
-        :getUserByPostId="getUserByPostId"
-      />
+      <div v-if="isPostsList" class="filters">
+        <div
+          v-if="!currentUserFilterPosts"
+          :class="[
+            'filters__sort',
+            'filters__item',
+            { 'filters__sort--active': alphabeticalSort }
+          ]"
+          @click="sort"
+        >
+          Сортировать по алфавиту
+        </div>
+
+        <div
+          v-if="currentUserFilterPosts"
+          class="filters__postsUser filters__item"
+        >
+          Посты пользователя {{ currentUserFilterPosts.name }}
+          <div
+            class="filters__reset"
+            @click="resetCurrentUserFilterPosts"
+          ></div>
+        </div>
+      </div>
+
+      <keep-alive>
+        <component
+          :is="`tab-${currentTypeTab}`"
+          class="tabs__list"
+          :posts="currentPosts"
+          :users="users"
+          :getUserByPostId="getUserByPostId"
+          @checkUserPosts="getPostsByUser"
+        />
+      </keep-alive>
     </div>
   </div>
 </main>

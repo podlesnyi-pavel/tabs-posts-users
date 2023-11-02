@@ -1,0 +1,25 @@
+.tab-users {
+  padding: 25px 20px;
+
+  &__list {
+    width: 50%;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 15px;
+    border: 1px solid #fff;
+  }
+  &__button {
+    padding: 5px 10px;
+    transition: background-color 1s, rotate 1s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: yellow;
+      rotate: 3deg;
+    }
+  }
+}

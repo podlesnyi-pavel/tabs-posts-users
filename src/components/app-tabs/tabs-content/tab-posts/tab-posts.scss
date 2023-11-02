@@ -1,9 +1,4 @@
 .tab-posts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #fff;
-
   &__item {
     width: 80%;
     min-width: 300px;
@@ -18,22 +13,6 @@
   &__item-line {
     padding: 5px 10px;
     border-bottom: 1px solid #4b4a4a;
-  }
-
-  &__new-comment {
-    width: 320px;
-    margin-top: 10px;
-  }
-
-  &__new-comment-label {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__add-comment-button {
-    display: block;
-    padding: 5px 10px;
-    cursor: pointer;
   }
 
   &__comments {

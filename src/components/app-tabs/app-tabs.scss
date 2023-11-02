@@ -11,9 +11,81 @@
   &__tab {
     padding: 10px 15px;
     border: 1px solid #fff;
+    cursor: pointer;
+    transition: all 0.4s;
 
     &:not(:first-child) {
       margin-left: 20px;
+    }
+
+    &:hover {
+      background-color: #fff;
+      color: #000;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #fff;
+  }
+}
+
+.filters {
+  display: flex;
+
+  &__item {
+    width: max-content;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+
+    & + .filters__item {
+      margin-left: 10px;
+    }
+  }
+
+  &__sort {
+    cursor: pointer;
+
+    &--active {
+      background-color: yellow;
+      color: #000;
+    }
+  }
+
+  &__postsUser {
+    display: flex;
+    padding-right: 20px;
+  }
+
+  &__reset {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    cursor: pointer;
+    background-color: transparent;
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 16px;
+        height: 2px;
+        background-color: red;
+        transform-origin: center;
+    }
+
+    &:before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:after {
+        transform: translate(-50%, -50%) rotate(-45deg);
     }
   }
 }

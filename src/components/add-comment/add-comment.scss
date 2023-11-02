@@ -1,0 +1,15 @@
+.new-comment {
+  width: 320px;
+  margin-top: 10px;
+
+  &__label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    display: block;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+}

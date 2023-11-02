@@ -1,3 +1,11 @@
 <div class="tab-users">
-  users
+  <ul class="tab-users__list">
+    <li v-for="user in users" class="tab-users__item">
+      {{ user.name }}
+
+      <button class="tab-users__button" @click="checkUserPosts(user)">
+        Посмотреть посты пользователя
+      </button>
+    </li>
+  </ul>
 </div>
