@@ -11,14 +11,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  base: '/tabs-posts-users/',
   css: {
-    devSourcemap: true,
-    preprocessorOptions: {
-      // scss: {
-      //   additionalData: `
-      //     @import "@/assets/styles/variables";
-      //   `
-      // }
-    }
+    devSourcemap: true
   }
 });
