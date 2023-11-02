@@ -2,15 +2,32 @@
   padding: 25px 20px;
 
   &__list {
-    width: 50%;
+    width: 100%;
+
+    @media screen and (min-width: 600px) {
+      width: 50%;
+    }
   }
 
   &__item {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: 10px;
     padding: 10px 15px;
     border: 1px solid #fff;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+
+    @media screen and (min-width: 400px) {
+      flex-direction: row;
+
+    &:not(:first-child) {
+      margin-top: initial;
+    }
+    }
   }
   &__button {
     padding: 5px 10px;
