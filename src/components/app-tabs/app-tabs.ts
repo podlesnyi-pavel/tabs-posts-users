@@ -4,6 +4,8 @@ import { ETabType } from '@/components/app-tabs/app-tab/enums/tab-types-enum';
 import tabPosts from '@/components/app-tabs/tabs-content/tab-posts/tab-posts.vue';
 import tabUsers from '@/components/app-tabs/tabs-content/tab-users/tab-users.vue';
 import Api from '@/helpers/api';
+import type { IUser } from '@/components/app-tabs/interfaces/user-interface';
+import type { IPost } from '@/components/app-tabs/interfaces/post-interface';
 
 export default defineComponent({
   name: 'appTabs',
@@ -16,14 +18,14 @@ export default defineComponent({
     return {
       currentTypeTab: 'posts',
       ETabType: ETabType,
-      posts: null as any[] | null,
-      users: null as any[] | null,
-      currentUserFilterPosts: null as null | any,
+      posts: null as IPost[] | null,
+      users: null as IUser[] | null,
+      currentUserFilterPosts: null as IUser | null,
       alphabeticalSort: false,
       postsToShow: 20,
-      displayedPosts: [] as any,
-      postsbyUser: [] as any,
-      displayedPostsbyUser: [] as any
+      displayedPosts: [] as IPost[],
+      postsbyUser: [] as IPost[] | [],
+      displayedPostsbyUser: [] as IPost[]
     };
   },
   computed: {
@@ -48,13 +50,17 @@ export default defineComponent({
     isPostsList(): boolean {
       return this.currentTypeTab === ETabType.Posts;
     },
-    currentPosts(): any[] | undefined | null {
+    currentPosts(): IPost[] {
       if (this.alphabeticalSort) {
-        return [...this.displayedPosts]?.sort((a, b) => {
-          const userNameA = this.getUserByPostId(a.userId).name;
-          const userNameB = this.getUserByPostId(b.userId).name;
+        return [...this.displayedPosts].sort((a, b) => {
+          const userNameA = this.getUserByPostId(a.userId)?.name;
+          const userNameB = this.getUserByPostId(b.userId)?.name;
 
-          return userNameA.localeCompare(userNameB);
+          if (userNameA && userNameB) {
+            return userNameA.localeCompare(userNameB);
+          }
+
+          return 0;
         });
       }
 
@@ -74,30 +80,33 @@ export default defineComponent({
       }
     },
     getUserByPostId(userId: number) {
-      return this.users?.find((user) => user.id === userId);
+      return this.users?.find((user: IUser) => user.id === userId);
     },
     getPostsLengthByUserId(userId: number) {
       return this.posts?.filter((post) => post.userId === userId).length;
     },
-    getCommentsById(userId: number) {
-      return this.users?.find((user) => user.id === userId);
+    getCommentsById(userId: number): IUser | undefined {
+      return this.users?.find((user: IUser) => user.id === userId);
     },
-    getPostsByUser(user: any): void {
+    getPostsByUser(user: IUser): void {
       this.changeCurrentTypeTab(ETabType.Posts);
       this.currentUserFilterPosts = user;
 
-      this.postsbyUser = this.posts?.filter(
-        (post) => post.userId === this.currentUserFilterPosts.id
-      );
-      this.loadMorePostsByUser();
+      if (this.posts) {
+        this.postsbyUser = this.posts.filter(
+          (post: IPost) => post.userId === this.currentUserFilterPosts?.id
+        );
+
+        this.loadMorePostsByUser();
+      }
     },
     resetCurrentUserFilterPosts(): void {
       this.currentUserFilterPosts = null;
     },
-    sort() {
+    sort(): void {
       this.alphabeticalSort = !this.alphabeticalSort;
     },
-    loadMorePosts() {
+    loadMorePosts(): void {
       if (this.posts) {
         const nextPosts = this.posts.slice(
           this.displayedPosts.length,
@@ -107,7 +116,7 @@ export default defineComponent({
         this.displayedPosts = this.displayedPosts.concat(nextPosts);
       }
     },
-    loadMorePostsByUser() {
+    loadMorePostsByUser(): void {
       if (this.postsbyUser) {
         const nextPosts = this.postsbyUser.slice(
           this.displayedPostsbyUser.length,
@@ -117,7 +126,7 @@ export default defineComponent({
         this.displayedPostsbyUser = this.displayedPostsbyUser.concat(nextPosts);
       }
     },
-    handleScroll() {
+    handleScroll(): void {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         if (this.currentUserFilterPosts) {
           this.loadMorePostsByUser();
